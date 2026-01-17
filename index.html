@@ -910,7 +910,7 @@
         function renderHeroCarousel() {
             const container = document.getElementById('hero-carousel-container');
             container.innerHTML = profileSlides.map((slide, index) => `
-                <div class="carousel-slide absolute inset-0 w-full h-full transition-all duration-1000 ease-in-out transform flex flex-col ${index === 0 ? 'opacity-100 translate-x-0 scale-100 z-20' : 'opacity-0 translate-x-12 scale-95 z-10 pointer-events-none'}" id="slide-${index}">
+                <div class="carousel-slide absolute inset-0 w-full h-full transition-all duration-700 ease-in-out transform flex flex-col ${index === 0 ? 'opacity-100 translate-x-0 scale-100 z-20' : 'opacity-0 translate-x-12 scale-95 z-10 pointer-events-none'}" id="slide-${index}">
                     <div class="relative h-full w-full overflow-hidden">
                         <img src="${slide.src}" alt="${slide.caption}" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105 opacity-90 hover:opacity-100">
                         <div class="absolute bottom-0 left-0 right-0 p-6 pt-12 bg-gradient-to-t from-slate-100 via-slate-100/80 dark:from-slate-950 dark:via-slate-900/80 to-transparent">
