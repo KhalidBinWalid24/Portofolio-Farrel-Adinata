@@ -19,7 +19,6 @@
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        serif: ['Merriweather', 'serif'], // Font Serif untuk Print/ATS
                     },
                     animation: {
                         'scroll-left': 'scroll-left 50s linear infinite',
@@ -110,11 +109,13 @@
                 color: black !important;
                 font-family: 'Arial', sans-serif !important;
                 width: 100% !important;
+                height: 100% !important;
                 margin: 0 !important;
                 padding: 0 !important;
                 position: absolute;
                 top: 0;
                 left: 0;
+                z-index: 9999;
             }
 
             /* Reset Link Styles untuk Print */
@@ -126,6 +127,12 @@
             /* Pastikan background putih */
             body {
                 background-color: white !important;
+            }
+
+            /* Paksa cetak background grafik untuk foto */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
         }
     </style>
@@ -209,21 +216,42 @@
     <!-- === INVISIBLE ATS FRIENDLY CV CONTAINER (Shows only on Print) === -->
     <div id="printable-cv" class="hidden font-sans text-black bg-white max-w-[210mm] mx-auto p-8 leading-relaxed">
         
-        <!-- Header -->
-        <header class="border-b-2 border-black pb-4 mb-6">
-            <h1 class="text-4xl font-bold uppercase tracking-wide mb-2">Farrel Octo Adinata</h1>
-            <p class="text-lg font-medium text-gray-700 mb-2">Mahasiswa Informatika | Atlet Catur Profesional</p>
-            <div class="flex flex-wrap gap-4 text-sm text-gray-600">
-                <span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3"></i> Kab. Bogor, Indonesia</span>
-                <span class="flex items-center gap-1"><i data-lucide="phone" class="w-3 h-3"></i> (+62) 881-5679-407</span>
-                <span class="flex items-center gap-1"><i data-lucide="mail" class="w-3 h-3"></i> adinatafarrelocto@gmail.com</span>
+        <!-- Header Flex: Info Kiri, Foto Kanan -->
+        <header class="border-b-2 border-black pb-6 mb-6 flex justify-between items-start gap-8">
+            <!-- Kolom Kiri: Data Diri -->
+            <div class="flex-1">
+                <h1 class="text-4xl font-bold uppercase tracking-wide mb-2">Farrel Octo Adinata</h1>
+                <p class="text-lg font-medium text-gray-700 mb-4">Mahasiswa Informatika | Atlet Catur Profesional</p>
+                <div class="space-y-1.5 text-sm text-gray-600">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="map-pin" class="w-4 h-4 text-black"></i> 
+                        <span>Desa Cibadung, Kab. Bogor, 16340</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="phone" class="w-4 h-4 text-black"></i> 
+                        <span>(+62) 881-5679-407</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="mail" class="w-4 h-4 text-black"></i> 
+                        <span>adinatafarrelocto@gmail.com</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="linkedin" class="w-4 h-4 text-black"></i> 
+                        <span>linkedin.com/in/farrel-octo-adinata</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kolom Kanan: Foto Profil -->
+            <div class="w-32 h-40 flex-shrink-0 border border-gray-300 rounded-md overflow-hidden bg-gray-100">
+                <img src="https://i.imgur.com/x0Umln2.jpeg" alt="Foto Profil" class="w-full h-full object-cover">
             </div>
         </header>
 
         <!-- Summary -->
         <section class="mb-6">
             <h2 class="text-lg font-bold uppercase border-b border-gray-400 mb-3 pb-1">Tentang Saya</h2>
-            <p class="text-sm text-justify">
+            <p class="text-sm text-justify leading-snug">
                 Mahasiswa aktif Informatika di Universitas Bina Sarana Informatika (UBSI) dan atlet catur berprestasi tingkat provinsi dan nasional. Memiliki pengalaman bertanding di berbagai kejuaraan resmi seperti PORPROV, KEJURPROV, dan KEJURNAS. Terbiasa bekerja dengan disiplin tinggi, fokus tajam, dan manajemen waktu yang baik. Memiliki pengalaman kerja yang mengasah kemampuan kerjasama tim dan pelayanan pelanggan.
             </p>
         </section>
@@ -238,8 +266,8 @@
                     <span class="text-sm text-gray-600">Maret 2024 - Juli 2024</span>
                 </div>
                 <div class="text-sm italic mb-1">Barista - Gading Serpong</div>
-                <ul class="list-disc list-inside text-sm text-gray-700 pl-2">
-                    <li>Memastikan kualitas dan konsistensi produk dengan menyajikan minuman berbasis kopi dan non-kopi sesuai dengan Standar Operasional Prosedur (SOP).</li>
+                <ul class="list-disc list-inside text-sm text-gray-700 pl-2 space-y-1">
+                    <li>Memastikan kualitas dan konsistensi produk dengan menyajikan minuman berbasis kopi dan non-kopi sesuai dengan SOP.</li>
                     <li>Meningkatkan kepuasan pelanggan melalui pelayanan yang responsif, komunikatif, dan berorientasi pada solusi (service excellence).</li>
                     <li>Berkolaborasi dengan tim untuk menjaga efisiensi operasional dan kebersihan area kerja dalam lingkungan kerja bertempo cepat.</li>
                 </ul>
@@ -251,7 +279,7 @@
                     <span class="text-sm text-gray-600">2019 - Sekarang</span>
                 </div>
                 <div class="text-sm italic mb-1">Atlet Catur - Tangerang Selatan</div>
-                <ul class="list-disc list-inside text-sm text-gray-700 pl-2">
+                <ul class="list-disc list-inside text-sm text-gray-700 pl-2 space-y-1">
                     <li>Berkompetisi secara aktif dan konsisten dalam sirkuit turnamen tingkat Provinsi, Nasional, hingga Internasional.</li>
                     <li>Mengasah kemampuan berpikir strategis dan pemecahan masalah dengan mengambil keputusan akurat di bawah tekanan waktu.</li>
                     <li>Memiliki disiplin diri dan manajemen mental yang kuat melalui rutinitas latihan intensif serta evaluasi performa berkala.</li>
@@ -265,7 +293,7 @@
             <div class="flex justify-between items-baseline">
                 <div>
                     <h3 class="font-bold text-base">Universitas Bina Sarana Informatika (UBSI)</h3>
-                    <p class="text-sm">S1 Informatika</p>
+                    <p class="text-sm">S1 Informatika - BSD Campus</p>
                 </div>
                 <span class="text-sm text-gray-600">2024 - Sekarang</span>
             </div>
@@ -275,11 +303,11 @@
         <section class="mb-6">
             <h2 class="text-lg font-bold uppercase border-b border-gray-400 mb-3 pb-1">Prestasi Utama</h2>
             <ul class="list-none text-sm text-gray-700 space-y-1">
-                <li><span class="font-bold">Top 1 (Emas)</span> - Catur Cepat Beregu Putra U-17 (PORPROV Banten 2022)</li>
-                <li><span class="font-bold">Top 3</span> - Catur Cepat Perorangan (POMPROV DKI Jakarta 2025)</li>
-                <li><span class="font-bold">Top 3</span> - Catur Standar (KEJURPROV Banten 2024)</li>
-                <li><span class="font-bold">Top 5</span> - Catur Standar (KEJURNAS Jakarta 2023)</li>
-                <li><span class="font-bold">Top 3</span> - Catur Kilat & Klasik Beregu Putra (PORPROV Banten 2022)</li>
+                <li><span class="font-bold">Top 1 (Emas)</span> - Catur Cepat Beregu Putra U-17 (PEKAN OLAHRAGA PROVINSI BANTEN 2022)</li>
+                <li><span class="font-bold">Top 3</span> - Catur Cepat Perorangan (PEKAN OLAHRAGA MAHASISWA PROV DKI 2025)</li>
+                <li><span class="font-bold">Top 3</span> - Catur Standar (KEJUARAAN PROVINSI BANTEN 2024)</li>
+                <li><span class="font-bold">Top 5</span> - Catur Standar (KEJUARAAN NASIONAL JAKARTA 2023)</li>
+                <li><span class="font-bold">Top 3</span> - Catur Kilat & Klasik Beregu Putra (PEKAN OLAHRAGA PROVINSI BANTEN 2022)</li>
             </ul>
         </section>
 
@@ -289,9 +317,10 @@
             <div class="text-sm text-gray-700 grid grid-cols-2 gap-2">
                 <div>• Strategic Planning & Analysis</div>
                 <div>• Problem Solving & Critical Thinking</div>
-                <div>• Time Management</div>
+                <div>• Time Management & Discipline</div>
                 <div>• Teamwork & Communication</div>
                 <div>• Microsoft Office & Basic Programming</div>
+                <div>• English (Professional Working Proficiency)</div>
             </div>
         </section>
     </div>
