@@ -79,7 +79,7 @@
     <!-- AUDIO PLACEHOLDER -->
     <!-- Ganti 'music-placeholder.mp3' dengan file musik Anda -->
     <audio id="bg-music" loop>
-        <source src="hoRRReg (Lirik) Jemsii x Naufal Syachreza x Tenxi #reels.mp3" type="audio/mp3">
+        <source src="hoRRReg (Lirik) Jemsii x Naufal Syachreza x Tenxi #reels.mp3" type="audio/mpag">
         Browser Anda tidak mendukung elemen audio.
     </audio>
 
@@ -313,33 +313,35 @@
         </div>
     </section>
 
-    <!-- Awards Section -->
+   <!-- Awards Section (Updated for Drag & Auto Scroll) -->
     <section id="awards" class="py-24 relative z-10 overflow-hidden">
         <div class="w-full">
             <div class="text-center mb-16 px-4">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4 dark:text-white text-slate-900">Prestasi & Penghargaan</h2>
                 <div class="w-24 h-1.5 bg-gradient-to-r from-yellow-500 to-transparent mx-auto rounded-full mb-6"></div>
                 <p class="max-w-2xl mx-auto text-lg text-slate-600 dark:text-slate-300">
-                    Koleksi medali dari kejuaraan resmi tingkat Provinsi dan Nasional. <span class="text-yellow-500 text-sm block mt-2">(Klik kartu untuk melihat hasil resmi)</span>
+                    Koleksi medali dari kejuaraan resmi tingkat Provinsi dan Nasional. <span class="text-yellow-500 text-sm block mt-2">(Geser untuk navigasi, Klik kartu untuk hasil resmi)</span>
                 </p>
             </div>
 
-            <!-- Carousel Row 1: Moves Left -->
-            <div class="relative w-full flex overflow-hidden mb-8 group">
-                <div id="awards-row-1" class="flex animate-scroll-left pause-on-hover py-4">
-                    <!-- Injected via JS -->
+            <!-- Draggable Marquee Rows -->
+            <div class="relative w-full mb-8 group">
+                <div id="marquee-row-1" class="marquee-container w-full">
+                    <div class="marquee-content py-4">
+                        <!-- Injected via JS -->
+                    </div>
                 </div>
             </div>
 
-            <!-- Carousel Row 2: Moves Right -->
-            <div class="relative w-full flex overflow-hidden group">
-                <div id="awards-row-2" class="flex animate-scroll-right pause-on-hover py-4">
-                     <!-- Injected via JS -->
+            <div class="relative w-full group">
+                <div id="marquee-row-2" class="marquee-container w-full">
+                    <div class="marquee-content py-4">
+                         <!-- Injected via JS -->
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-
     <!-- Contact Section -->
     <section id="contact" class="py-24 relative z-10">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
