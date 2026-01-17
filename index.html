@@ -24,6 +24,7 @@
                         'scroll-left': 'scroll-left 50s linear infinite',
                         'scroll-right': 'scroll-right 50s linear infinite',
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-slow': 'bounce 3s infinite',
                     },
                     keyframes: {
                         'scroll-left': {
@@ -41,12 +42,11 @@
     </script>
 
     <style>
-        /* Custom Styles that Tailwind arbitrary values might miss */
+        /* Custom Styles */
         .pause-on-hover:hover {
             animation-play-state: paused;
         }
         
-        /* Hide scrollbar for clean UI */
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -55,13 +55,33 @@
             scrollbar-width: none;
         }
 
-        /* Smooth transitions for theme switching */
         body, .glass-card, .glass-nav, .text-primary, .text-secondary {
             transition: all 0.5s ease-in-out;
+        }
+
+        /* FAB Animation */
+        .fab-item {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(20px) scale(0.8);
+            pointer-events: none;
+        }
+        
+        .fab-open .fab-item {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
         }
     </style>
 </head>
 <body class="font-sans selection:bg-yellow-500 selection:text-slate-900 bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-white transition-colors duration-500 overflow-x-hidden">
+
+    <!-- AUDIO PLACEHOLDER -->
+    <!-- Ganti 'music-placeholder.mp3' dengan file musik Anda -->
+    <audio id="bg-music" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        Browser Anda tidak mendukung elemen audio.
+    </audio>
 
     <!-- Global Background Ornaments -->
     <div class="fixed inset-0 pointer-events-none z-0">
@@ -84,7 +104,6 @@
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center">
                     <div class="ml-10 flex items-baseline space-x-8" id="desktop-menu">
-                        <!-- Links will be injected by JS or hardcoded -->
                         <a href="#home" class="nav-link text-sm font-medium transition-all duration-300 relative py-1 px-2 rounded-lg hover:bg-white/5 dark:text-slate-300 text-slate-600 hover:text-slate-900 dark:hover:text-white">Beranda</a>
                         <a href="#about" class="nav-link text-sm font-medium transition-all duration-300 relative py-1 px-2 rounded-lg hover:bg-white/5 dark:text-slate-300 text-slate-600 hover:text-slate-900 dark:hover:text-white">Tentang</a>
                         <a href="#experience" class="nav-link text-sm font-medium transition-all duration-300 relative py-1 px-2 rounded-lg hover:bg-white/5 dark:text-slate-300 text-slate-600 hover:text-slate-900 dark:hover:text-white">Pengalaman</a>
@@ -194,7 +213,6 @@
                 </p>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Cards -->
                     <div class="p-6 rounded-xl border transition-all flex flex-col items-center text-center group bg-white/50 border-slate-200 hover:bg-white dark:bg-slate-900/40 dark:border-white/5 dark:hover:bg-white/5">
                         <div class="p-3 rounded-full mb-4 group-hover:scale-110 transition-transform duration-300 bg-slate-100 dark:bg-white/5">
                             <i data-lucide="brain" class="text-blue-500" size="28"></i>
@@ -232,7 +250,6 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <!-- Work -->
                 <div>
                     <h3 class="text-2xl font-bold mb-8 flex items-center gap-3 dark:text-white text-slate-900">
                         <div class="p-2 rounded-lg backdrop-blur-sm bg-yellow-100 dark:bg-yellow-500/20">
@@ -241,7 +258,6 @@
                         Pengalaman Kerja
                     </h3>
                     <div class="space-y-8 pl-4 border-l-2 border-slate-200 dark:border-slate-800">
-                        <!-- Barista -->
                         <div class="rounded-2xl transition-all duration-300 bg-white/60 dark:bg-white/5 backdrop-blur-lg border shadow-xl dark:shadow-2xl hover:bg-white/80 dark:hover:bg-white/10 p-6 md:p-8 transform hover:-translate-y-1 hover:shadow-yellow-500/10 border-l-4 border-l-yellow-500 border-t-white/10 border-r-white/10 border-b-white/10 dark:border-t-white/10">
                             <div class="flex justify-between items-start mb-4">
                                 <h4 class="text-xl font-bold dark:text-white text-slate-900">Barista</h4>
@@ -255,7 +271,6 @@
                                 <li class="flex items-start gap-2"><span class="mt-1.5 w-1.5 h-1.5 bg-yellow-500 rounded-full"></span>Operasional harian & teamwork.</li>
                             </ul>
                         </div>
-                        <!-- Athlete -->
                         <div class="rounded-2xl transition-all duration-300 bg-white/60 dark:bg-white/5 backdrop-blur-lg border shadow-xl dark:shadow-2xl hover:bg-white/80 dark:hover:bg-white/10 p-6 md:p-8 transform hover:-translate-y-1 hover:shadow-blue-500/10 border-l-4 border-l-blue-500 border-t-white/10 border-r-white/10 border-b-white/10">
                             <div class="flex justify-between items-start mb-4">
                                 <h4 class="text-xl font-bold dark:text-white text-slate-900">Atlet Catur</h4>
@@ -394,6 +409,30 @@
         </div>
     </footer>
 
+    <!-- Floating Action Button (FAB) -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col-reverse items-center gap-4 group" id="fab-container">
+        <!-- Main Button -->
+        <button id="fab-main" onclick="toggleFab()" class="w-14 h-14 rounded-full bg-yellow-500 hover:bg-yellow-400 text-slate-900 shadow-xl flex items-center justify-center transition-transform hover:scale-110 active:scale-95 focus:outline-none z-50 animate-bounce-slow">
+            <i data-lucide="plus" id="fab-icon" class="transition-transform duration-300"></i>
+        </button>
+
+        <!-- Sub Buttons (Social Media) -->
+        <div class="fab-item flex flex-col gap-3 items-center">
+            <!-- Chess.com (Using Gamepad as proxy or SVG) -->
+            <a href="https://www.chess.com" target="_blank" class="w-10 h-10 rounded-full bg-green-600 text-white shadow-lg flex items-center justify-center hover:scale-110 transition-transform" title="Chess.com">
+                <i data-lucide="gamepad-2" size="20"></i>
+            </a>
+            <!-- LinkedIn -->
+            <a href="#" target="_blank" class="w-10 h-10 rounded-full bg-blue-600 text-white shadow-lg flex items-center justify-center hover:scale-110 transition-transform" title="LinkedIn">
+                <i data-lucide="linkedin" size="20"></i>
+            </a>
+            <!-- Instagram -->
+            <a href="#" target="_blank" class="w-10 h-10 rounded-full bg-pink-600 text-white shadow-lg flex items-center justify-center hover:scale-110 transition-transform" title="Instagram">
+                <i data-lucide="instagram" size="20"></i>
+            </a>
+        </div>
+    </div>
+
     <!-- JavaScript Logic -->
     <script>
         // --- Initialization ---
@@ -404,7 +443,45 @@
             renderHeroCarousel();
             renderAwards();
             startHeroInterval();
+            initAudio();
         });
+
+        // --- Audio Logic ---
+        function initAudio() {
+            const audio = document.getElementById('bg-music');
+            
+            // Try autoplay
+            const playPromise = audio.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    // Autoplay started!
+                    console.log("Audio playing");
+                }).catch(error => {
+                    // Autoplay blocked. Wait for user interaction.
+                    console.log("Autoplay blocked. Waiting for interaction.");
+                    document.addEventListener('click', () => {
+                        audio.play();
+                    }, { once: true });
+                });
+            }
+        }
+
+        // --- FAB Logic ---
+        let isFabOpen = false;
+        function toggleFab() {
+            isFabOpen = !isFabOpen;
+            const container = document.getElementById('fab-container');
+            const icon = document.getElementById('fab-icon');
+            
+            if (isFabOpen) {
+                container.classList.add('fab-open');
+                icon.classList.add('rotate-45');
+            } else {
+                container.classList.remove('fab-open');
+                icon.classList.remove('rotate-45');
+            }
+        }
 
         // --- State ---
         let isDarkMode = true;
@@ -452,7 +529,6 @@
 
         // --- Logic: Theme Toggle ---
         function initTheme() {
-            // Default to dark mode
             if (localStorage.getItem('theme') === 'light') {
                 isDarkMode = false;
                 document.documentElement.classList.remove('dark');
@@ -539,7 +615,6 @@
             navLinks.forEach(link => {
                 link.classList.remove('text-yellow-500', 'font-bold');
                 link.classList.add('dark:text-slate-300', 'text-slate-600');
-                // Remove indicator logic for simple HTML, or add border-b
                 if (link.getAttribute('href') === `#${current}`) {
                     link.classList.add('text-yellow-500', 'font-bold');
                     link.classList.remove('dark:text-slate-300', 'text-slate-600');
@@ -560,11 +635,9 @@
         function toggleMobileMenu() {
             isMenuOpen = !isMenuOpen;
             const menu = document.getElementById('mobile-menu');
-            const icon = document.getElementById('menu-icon');
             
             if (isMenuOpen) {
                 menu.classList.remove('hidden');
-                // Could replace icon with 'X' using lucide API if desired
             } else {
                 menu.classList.add('hidden');
             }
