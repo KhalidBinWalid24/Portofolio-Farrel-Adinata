@@ -93,7 +93,7 @@
         /* --- PRINT / ATS FRIENDLY STYLES --- */
         @media print {
             @page {
-                margin: 1cm;
+                margin: 0; /* Hapus header/footer browser (tanggal/url) secara paksa */
                 size: auto;
             }
             
@@ -109,13 +109,14 @@
                 color: black !important;
                 font-family: 'Arial', sans-serif !important;
                 width: 100% !important;
-                height: 100% !important;
+                min-height: 100vh !important;
                 margin: 0 !important;
-                padding: 0 !important;
+                padding: 1.5cm !important; /* Margin halaman manual agar rapi */
                 position: absolute;
                 top: 0;
                 left: 0;
                 z-index: 9999;
+                box-sizing: border-box;
             }
 
             /* Reset Link Styles untuk Print */
@@ -127,6 +128,8 @@
             /* Pastikan background putih */
             body {
                 background-color: white !important;
+                margin: 0 !important;
+                padding: 0 !important;
             }
 
             /* Paksa cetak background grafik untuk foto */
@@ -320,6 +323,7 @@
                 <div>• Time Management & Discipline</div>
                 <div>• Teamwork & Communication</div>
                 <div>• Microsoft Office & Basic Programming</div>
+                <div>• English (Professional Working Proficiency)</div>
             </div>
         </section>
     </div>
